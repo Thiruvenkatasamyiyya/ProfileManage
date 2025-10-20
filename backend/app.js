@@ -2,12 +2,15 @@ import express from "express"
 import dotenv from "dotenv"
 import { dbconnect } from "./config/dbconnect.js"
 import errorHandling from "./middlewares/errorHandling.js"
+import userRoute from "./routes/userRoute.js"
 const app = express()
 
 dotenv.config({path : './config/.env'})
 
 
 dbconnect()
+
+app.use(express.json())
 
 // const check = (gameFun)=>(hell,err)=>{
 //   Promise.resolve(gameFun(hell,err)).catch(err)
@@ -29,19 +32,9 @@ dbconnect()
 // // .then(resutl => console.log(resutl))
 // .catch(err => console.log(err))
 
-app.use("/", (req,res,next)=>{
-  console.log("hell");
-  res.send("welcome ")
-  next()
-})
-
-app.use( (req,res,next)=>{
-  console.log("hell2");
-  
-  // next(new Error("je;;"))
-})
 
 
+app.use("/",userRoute)
 app.use(errorHandling)
 
 
