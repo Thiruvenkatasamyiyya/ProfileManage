@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import { dbconnect } from "./config/dbconnect.js"
 import errorHandling from "./middlewares/errorHandling.js"
 import userRoute from "./routes/userRoute.js"
+import Karthi from "./utils/sample.js"
 const app = express()
 
 dotenv.config({path : './config/.env'})
@@ -31,6 +32,28 @@ app.use(express.json())
 // fun
 // // .then(resutl => console.log(resutl))
 // .catch(err => console.log(err))
+
+// const karthi = (callback)=>(a)=>{
+
+//     console.log("first");
+    
+//     callback(a)
+// }
+
+// karthi((a)=>{
+//     console.log(a);
+    
+// })
+
+
+// function hell(a){
+//     console.log(a);
+    
+// }
+
+
+// const a = new Karthi()
+// a.character()
 
 
 
