@@ -1,5 +1,6 @@
 import mongoose  from "mongoose";
 import bcrypt from "bcrypt"
+import crypto from "crypto"
 const UserSchema = new mongoose.Schema({
 
     userName : {
@@ -20,7 +21,9 @@ const UserSchema = new mongoose.Schema({
     avatar : {
         publicId : String,
         url : String
-    }
+    },
+    resetPasswordToken : String,
+    resetTokenExpires : Date
 
 },{timestamps : true})
 
@@ -36,4 +39,14 @@ UserSchema.methods.checkPassword = async function(check){
     
 }
 
+UserSchema.methods.getResetToken = async function(){
+
+    const resetToken = crypto.randomBytes(20).toString('hex')
+
+    this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex')
+
+    this.resetTokenExpires = Date.now() * 30 *60 *1000
+
+    return resetToken
+}
 export default mongoose.model("User",UserSchema);
