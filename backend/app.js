@@ -3,7 +3,8 @@ import dotenv from "dotenv"
 import { dbconnect } from "./config/dbconnect.js"
 import errorHandling from "./middlewares/errorHandling.js"
 import userRoute from "./routes/userRoute.js"
-import Karthi from "./utils/sample.js"
+import cookieParser from "cookie-parser"
+
 const app = express()
 
 dotenv.config({path : './config/.env'})
@@ -12,6 +13,7 @@ dotenv.config({path : './config/.env'})
 dbconnect()
 
 app.use(express.json())
+app.use(cookieParser())
 
 // const check = (gameFun)=>(hell,err)=>{
 //   Promise.resolve(gameFun(hell,err)).catch(err)

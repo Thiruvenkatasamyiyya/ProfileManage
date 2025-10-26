@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema({
         maxLenght : [50,"Password cannot over the 50characters"]
     },
     avatar : {
-        publicId : String,
+        public_id : String,
         url : String
     },
     resetPasswordToken : String,
@@ -39,14 +39,18 @@ UserSchema.methods.checkPassword = async function(check){
     
 }
 
-UserSchema.methods.getResetToken = async function(){
+UserSchema.methods.getResetToken =function(){
 
     const resetToken = crypto.randomBytes(20).toString('hex')
 
     this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex')
 
-    this.resetTokenExpires = Date.now() * 30 *60 *1000
+    this.resetTokenExpires = Date.now() + 30 *60 *1000
 
     return resetToken
+}
+
+UserSchema.methods.setNewPassword = async function(pass){
+    this.password = pass;
 }
 export default mongoose.model("User",UserSchema);

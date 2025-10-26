@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken"
 
-export default function(email,res){
+export default function(id,res){
 
-    const token = jwt.sign({email : email},process.env.TOKEN)
+    const token = jwt.sign({id : id},process.env.TOKEN)
 
 
     const options = {
@@ -11,7 +11,7 @@ export default function(email,res){
     secure:false,
     };
 
-    res.status(201).cookie("token",token,options).json({
+    res.status(200).cookie("token",token,options).json({
         token
     })
 
