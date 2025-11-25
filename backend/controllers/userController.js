@@ -37,7 +37,7 @@ export const loginUser = catchAsyncErrors(async(req,res,next)=>{
     const data = await User.findOne({email})
     if(!data){
 
-        return next(new Error("Enter the valid email"))
+        return next(new Error("Register before login"))
     }
     const pass = await data.checkPassword(password)
     if(!pass){

@@ -4,6 +4,7 @@ import { dbconnect } from "./config/dbconnect.js"
 import errorHandling from "./middlewares/errorHandling.js"
 import userRoute from "./routes/userRoute.js"
 import cookieParser from "cookie-parser"
+import thirdPartyRoute from "./routes/thirdParty.js"
 
 const app = express()
 
@@ -57,9 +58,21 @@ app.use(cookieParser())
 // const a = new Karthi()
 // a.character()
 
+// const data = (name,callback)=>{
+
+//     callback(name)
+// }
+
+
+// data("Thiru",(n)=>{
+//     console.log(n);
+    
+// })
+
 
 
 app.use("/",userRoute)
+app.use("/",thirdPartyRoute)
 app.use(errorHandling)
 
 

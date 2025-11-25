@@ -23,7 +23,9 @@ const UserSchema = new mongoose.Schema({
         url : String
     },
     resetPasswordToken : String,
-    resetTokenExpires : Date
+    resetTokenExpires : Date,
+    oAuthCode : String,
+    oAuthExpires: Date,
 
 },{timestamps : true})
 
