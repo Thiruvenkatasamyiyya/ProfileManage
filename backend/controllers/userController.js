@@ -5,7 +5,9 @@ import crypto from "crypto"
 import nodemailer from "../utils/nodemailer.js";
 import { delete_avt, upload_avt } from "../utils/cloudinary.js";
 export const getUserDetails = async(req,res,next)=>{
-    const data = await User.find();
+
+    const id = req.user.id
+    const data = await User.findById(id);
 
     res.json({
         data : data

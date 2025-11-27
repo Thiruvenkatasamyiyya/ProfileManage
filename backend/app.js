@@ -5,7 +5,7 @@ import errorHandling from "./middlewares/errorHandling.js"
 import userRoute from "./routes/userRoute.js"
 import cookieParser from "cookie-parser"
 import thirdPartyRoute from "./routes/thirdParty.js"
-
+import cors from "cors"
 const app = express()
 
 dotenv.config({path : './config/.env'})
@@ -15,6 +15,10 @@ dbconnect()
 
 app.use(express.json())
 app.use(cookieParser())
+app.use(cors({
+  origin: 'http://localhost:5173', // frontend origin
+  credentials: true               // ✅ allow cookies to be sent
+}));
 
 // const check = (gameFun)=>(hell,err)=>{
 //   Promise.resolve(gameFun(hell,err)).catch(err)
