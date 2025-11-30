@@ -6,10 +6,11 @@ import crypto from "crypto"
 import jwt from "jsonwebtoken"
 export const createClientUrl = catchAsyncErrors(async(req,res,next)=>{
     const {appName,redirectUrl} = req.body;
-
+    const {id} = req.user
     const data = await ThirdParty.create({
         appName,
-        redirectUrl
+        redirectUrl,
+        id
     })
     
     data.clientID = appName + randomHash();
@@ -18,6 +19,20 @@ export const createClientUrl = catchAsyncErrors(async(req,res,next)=>{
     await data.save();
         
     res.json({
+        data
+    })
+})
+
+//find client url
+
+export const findClientID = catchAsyncErrors(async(req,res,next)=>{
+    const {id} = req.user;
+    const data = await ThirdParty.find({
+        id 
+    })
+
+    if(!data) return next(new Error("Not yet created"));
+    res.status(201).json({
         data
     })
 })

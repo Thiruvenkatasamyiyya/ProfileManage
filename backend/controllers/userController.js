@@ -25,8 +25,9 @@ export const setUserDetails = catchAsyncErrors(async(req,res,next)=>{
         email,
         password
     })
+    
     res.json({
-        data
+        message : "Successfully Signup"    
     })
     
 })

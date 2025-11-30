@@ -6,6 +6,7 @@ import userRoute from "./routes/userRoute.js"
 import cookieParser from "cookie-parser"
 import thirdPartyRoute from "./routes/thirdParty.js"
 import cors from "cors"
+import ThirdParty from "./model/ThirdParty.js"
 const app = express()
 
 dotenv.config({path : './config/.env'})
@@ -72,8 +73,6 @@ app.use(cors({
 //     console.log(n);
     
 // })
-
-
 
 app.use("/",userRoute)
 app.use("/",thirdPartyRoute)

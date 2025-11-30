@@ -8,7 +8,9 @@ export const userApi = createApi({
     register: builder.mutation({
       query: (body) =>({
         url : '/register',
-        body
+        method : "post",
+        body,
+        credentials : "include"
       }),
     }),
     login : builder.mutation({
