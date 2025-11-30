@@ -16,6 +16,8 @@ const Home = () => {
         </div>
         
         <Button variant={'outline'} onClick = {()=>navigate('/login')}>Add account</Button>
+        <Button variant={''} onClick = {()=>navigate('/devConsole')}>Dev Console</Button>
+
         
     </div>
   )

@@ -118,3 +118,6 @@
     @apply bg-background text-foreground;
   }
 }
+.smoo{
+   transition: width 0.4s ease;
+}

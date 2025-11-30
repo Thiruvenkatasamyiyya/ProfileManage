@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Input } from "../components/ui/input";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import {
   Field,
   FieldDescription,
@@ -8,12 +9,12 @@ import {
 } from "@/components/ui/field";
 import { Button } from "../components/ui/button";
 import {
-  useClientUrlMutation,
   useListClientUrlQuery,
 } from "../../redux/api/thirdPartyApi";
 import { toast } from "react-hot-toast";
 import { useEffect } from "react";
 import Manual from "../components/Manual";
+import ClientDev from "../components/ClientDev";
 const DevConsole = () => {
   const {
     data: fData,
@@ -21,70 +22,63 @@ const DevConsole = () => {
     isLoading: fLoading,
   } = useListClientUrlQuery();
 
-  const [submitClient, { data, error, isLoading }] = useClientUrlMutation();
-  const [appName, setAppName] = useState("");
-  const [url, setUrl] = useState("");
-
-  useEffect(() => {
-    // const {data, error, isLoading} = useLazyListClientUrlQuery()
-  }, []);
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (appName == "" || url == "") {
-      toast.error("Fill all fields");
-      return;
-    }
-
-    submitClient({
-      appName,
-      redirectUrl: url,
-    });
+  function handleCopy(data) {
+    navigator.clipboard.writeText(data);
+    toast.success("copied");
   }
-  console.log(data, error, isLoading);
+
+  function handleDelete() {}
   console.log(fData, fError);
 
   return (
     <div>
-      {fData?.data !=[] && (
-        <div>
-          <h1>Your projects</h1>
-          <div>
-            {fData?.data?.map((item, index) => (
-              <div key={index}>
-                <h2>{item?.appName}</h2>
-                <label htmlFor="">ClientId</label>
-                <input type="text" name="" id="" value={item?.clientID} />
-                <label htmlFor="">Client Secret</label>
-                <input type="text" name="" id="" value={item?.clientSecret} />
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      <Card className="p-6 max-w-6xl mx-auto space-y-6">
+        {fData?.data != [] && (
+          <CardContent>
+            <h1 className="text-2xl font-bold">Your projects</h1>
+            <Button size="icon">{"<"}</Button>
+            <div className="grid grid-cols-4 gap-4">
+              {fData?.data?.slice(0,5).map((item, index) => (
+                <Card className=""  key={index} >
+                  <CardContent>
+                    <div className="">
+                      <h2 className="mb-4 text-xl font-bold capitalize">
+                        {item?.appName}
+                      </h2>
+                      <label htmlFor="">ClientId</label>
+                      <Input
+                        type="text"
+                        name=""
+                        id=""
+                        value={item?.clientID}
+                        readOnly
+                        onClick={() => handleCopy(item?.clientID)}
+                      />
 
-      <div>
-        <h1>Welcome to Developer Console </h1>
-        <form onSubmit={handleSubmit}>
-          <FieldGroup>
-            <Field>
-              <FieldLabel>App Name :</FieldLabel>
-              <Input
-                placeholder="eg : Ecommerce"
-                onChange={(e) => setAppName(e.target.value)}
-              />
-            </Field>
-            <Field>
-              <FieldLabel>Redirect Url :</FieldLabel>
-              <Input
-                placeholder="code redirect"
-                onChange={(e) => setUrl(e.target.value)}
-              />
-            </Field>
-          </FieldGroup>
-          <Button type={"submit"}>Generate</Button>
-        </form>
-      </div>
-      <Manual/>
+                      <label htmlFor="">Client Secret</label>
+                      <Input
+                        type="text"
+                        name=""
+                        id=""
+                        value={item?.clientSecret}
+                        readOnly
+                        onClick={() => handleCopy(item?.clientSecret)}
+                      />
+                      <Button onClick={handleDelete} variant="destructive">
+                        Delete
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </CardContent>
+        )}
+
+
+      </Card>
+      <ClientDev/>
+      <Manual />
     </div>
   );
 };
