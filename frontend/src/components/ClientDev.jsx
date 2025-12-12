@@ -51,7 +51,8 @@ const ClientDev = () => {
                 />
               </Field>
             </FieldGroup>
-            <Button type={"submit"}>Generate</Button>
+            <Button type={"submit"} disabled={isLoading}>{
+              isLoading ? "Generating..." : "Generate "}</Button>
           </form>
         </CardContent>
         </Card>

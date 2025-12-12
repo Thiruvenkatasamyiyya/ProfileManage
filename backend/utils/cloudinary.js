@@ -1,14 +1,14 @@
 import { v2 as cloudinary } from 'cloudinary'
 import dotenv from 'dotenv'
 
-dotenv.config({path : '../config/.env'})
+dotenv.config({path : '../config/config.env'})
 const s =cloudinary.config({ 
   cloud_name: "dp9zvhpji", 
   api_key:  216289368462612, 
   api_secret: "pFHvKRqa4FHZSYFKx699pwQ1r"
 });
 
-export const upload_avt =  (file,folder )=>{
+export const upload_avt =  (file,folder)=>{
 console.log(s);
 
     return new Promise((resolve,reject)=>{

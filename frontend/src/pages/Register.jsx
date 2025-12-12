@@ -24,8 +24,8 @@ const Register = () => {
 console.log(data, error, isLoading);
 
   return (
-    <div className='w-full grid ' >
-        <SignupForm  className = "max-w-md" handleRegister={handleRegister}/>
+    <div className='w-full   ' >
+        <SignupForm  className = "max-w-md mx-auto" handleRegister={handleRegister}/>
     </div>
   )
 }

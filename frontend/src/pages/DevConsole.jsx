@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/field";
 import { Button } from "../components/ui/button";
 import {
+  useDeleteClientUrlMutation,
   useListClientUrlQuery,
 } from "../../redux/api/thirdPartyApi";
 import { toast } from "react-hot-toast";
@@ -22,13 +23,25 @@ const DevConsole = () => {
     isLoading: fLoading,
   } = useListClientUrlQuery();
 
+  const [deleteClient,{data,error}] =  useDeleteClientUrlMutation()
+
+  useEffect(()=>{
+    console.log(data);
+    
+    if(data) toast.success(data?.message);
+  },[data])
   function handleCopy(data) {
     navigator.clipboard.writeText(data);
     toast.success("copied");
   }
 
-  function handleDelete() {}
-  console.log(fData, fError);
+  function handleDelete(clientID) {
+     deleteClient({
+      clientID
+    })
+
+  }
+
 
   return (
     <div>
@@ -36,7 +49,6 @@ const DevConsole = () => {
         {fData?.data != [] && (
           <CardContent>
             <h1 className="text-2xl font-bold">Your projects</h1>
-            <Button size="icon">{"<"}</Button>
             <div className="grid grid-cols-4 gap-4">
               {fData?.data?.slice(0,5).map((item, index) => (
                 <Card className=""  key={index} >
@@ -64,7 +76,7 @@ const DevConsole = () => {
                         readOnly
                         onClick={() => handleCopy(item?.clientSecret)}
                       />
-                      <Button onClick={handleDelete} variant="destructive">
+                      <Button onClick={()=>handleDelete(item?.clientID)} variant="destructive">
                         Delete
                       </Button>
                     </div>

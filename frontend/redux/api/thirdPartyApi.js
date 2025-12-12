@@ -17,10 +17,18 @@ export const thirdPartyApi = createApi({
       query : ()=>"/oauth/clientList",
       providesTags : ['party']
     }),
+    deleteClientUrl : builder.mutation({
+      query : (body)=>({
+        url : "/oauth/delete",
+        method : "post",
+        body
+      }),
+      invalidatesTags : ["party"]
+    })
   
   }),
 
 })
 
 
-export const { useClientUrlMutation, useListClientUrlQuery } = thirdPartyApi
+export const { useClientUrlMutation, useListClientUrlQuery, useDeleteClientUrlMutation } = thirdPartyApi

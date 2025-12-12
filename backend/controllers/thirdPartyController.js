@@ -82,3 +82,19 @@ export const accessToken = catchAsyncErrors(async(req,res,next)=>{
         access_token
     })
 })
+
+//delete
+
+export const deleteClient = catchAsyncErrors(async(req,res,next)=>{
+    const {clientID} = req.body;
+    const {id} = req.user;
+    
+    await ThirdParty.deleteOne({
+        id,
+        clientID,
+    })
+
+    res.status(200).json({
+        message : "deleted successfully"
+    })
+})

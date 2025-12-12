@@ -9,7 +9,7 @@ import cors from "cors"
 import ThirdParty from "./model/ThirdParty.js"
 const app = express()
 
-dotenv.config({path : './config/.env'})
+dotenv.config({path : './config/config.env'})
 
 
 dbconnect()

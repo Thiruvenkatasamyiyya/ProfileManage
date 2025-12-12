@@ -121,3 +121,7 @@
 .smoo{
    transition: width 0.4s ease;
 }
+
+.back{
+  background-image:url();
+}
